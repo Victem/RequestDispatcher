@@ -22,7 +22,7 @@ public static class DI
 {
     public static IServiceCollection AddDispatcher(this IServiceCollection services, Action<RequestDispatcherOptions> options = default)
     {
-        services.AddSingleton<IDispatcher, Dispatcher>();
+        services.AddSingleton<IRequestDispatcher, RequestDispatcher>();
         services.AddSingleton(typeof(IRequestHandlerInvoker<,>),typeof(RequestHandlerInvoker<,>));
         services.AddSingleton(typeof(IMessageHandlerInvoker<,>), typeof(MessageHandlerInvoker<,>));
         services.AddSingleton(typeof(IStreamRequestHandlerInvoker<,>), typeof(StreamRequestHandlerInvoker<,>));

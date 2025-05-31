@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RequestDispatcher.Core.Abstractions;
 
-public interface IDispatcher
+public interface IRequestDispatcher
 {
     public ValueTask<TResult> Send<TResult>(IRequest<TResult> request, CancellationToken cancellationToken = default);    
 

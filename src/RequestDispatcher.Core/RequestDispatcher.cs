@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace RequestDispatcher.Core;
 
-public sealed class Dispatcher : IDispatcher
+public sealed class RequestDispatcher : IRequestDispatcher
 {
     
     private readonly IServiceProvider _serviceProvider;
@@ -27,7 +27,7 @@ public sealed class Dispatcher : IDispatcher
     private readonly IRequestHanlderMapping _requestHanlderMapping;
     private readonly IMessageHandlerMapping _messageHandlerMapping;    
     private readonly IStreamRequestHanlderMapping _streamRequestHandlerMapping;
-    public Dispatcher(
+    public RequestDispatcher(
         IServiceProvider serviceProvider,
         IRequestHanlderMapping hanlderMapping,
         IMessageHandlerMapping messageHandlerMapping,

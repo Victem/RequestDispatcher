@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using RequestDispatcher.ConsoleApp;
 using RequestDispatcher.Core;
 using RequestDispatcher.Core.Abstractions;
+using RequestDispatcher.Core.Contracts;
+using RequestDispatcher.Core.Processing.Messages;
 using RequestDispatcher.Core.Processing.Requests;
 using RequestDispatcher.Core.Processing.Sreams;
 
@@ -16,10 +18,15 @@ services.AddTransient(sp => new DataProvider());
 services.AddKeyedScoped<IRequestHandler<FirstRequest, FirstResponse>, FirstHandler>(nameof(FirstRequest));
 services.AddRequestDispatcherConsoleApp();
 services.AddScoped<IStreamRequestHandler<StreamRequest, string>, StreamHandler>();
+services.AddKeyedSingleton<IMessageHandler<FirstMessage, MessageHandled>,FirstHandler>("one");
+services.AddKeyedSingleton<IMessageHandler<FirstMessage, MessageHandled>,SecondHandler>("one");
 
 var serviceProvider = services.BuildServiceProvider();
 
-var dispatcher = serviceProvider.GetRequiredService<IDispatcher>();
+var dispatcher = serviceProvider.GetRequiredService<IRequestDispatcher>();
+
+var handlers = serviceProvider.GetKeyedServices<IMessageHandler<FirstMessage, MessageHandled>>("one").ToArray();
+
 
 //var firstResult = await dispatcher.Send(new FirstRequest());
 //var secondResult = await dispatcher.Send(new SecondRequest());

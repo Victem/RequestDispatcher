@@ -22,7 +22,7 @@ namespace RequestDispatcher.Benchmark;
 [MemoryDiagnoser(true)]
 public class Benchmarks
 {
-    private IDispatcher _dispatcher;
+    private IRequestDispatcher _dispatcher;
     private IMediator _mediator;
     private Ping _ping = new Ping("Hello World");
     private Ping2 _ping2 = new Ping2("Hello World");
@@ -51,7 +51,7 @@ public class Benchmarks
 
         var provider = services.BuildServiceProvider();
 
-        _dispatcher = provider.GetRequiredService<IDispatcher>();
+        _dispatcher = provider.GetRequiredService<IRequestDispatcher>();
         _numbers = [1,2,3,4,5,6,7,8,9,10];
 
         _mediator = provider.GetRequiredService<IMediator>();
