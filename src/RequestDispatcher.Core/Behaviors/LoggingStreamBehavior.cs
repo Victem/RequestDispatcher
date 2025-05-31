@@ -19,9 +19,7 @@ public class LoggingStreamBehavior<TRequest, TResult> : IStreamRequestPipelineBe
         //Console.WriteLine("Before");
         await foreach (var item in next().WithCancellation(cancellationToken)) 
         {
-            //Console.WriteLine($"{typeof(LoggingBehavior<TRequest,TResult>)} {item}");
             yield return item;
         }
-        //Console.WriteLine("After");
     }
 }

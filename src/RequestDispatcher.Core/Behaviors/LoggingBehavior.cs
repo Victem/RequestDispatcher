@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace RequestDispatcher.Core.Behaviors;
 
-//public interface IRequestBasePipelineBehavior<TRequest, TEmprtyResult> where TRequest : IRequest<TEmprtyResult>
 public class LoggingBehavior<TRequest, TResult> : IRequestBasePipelineBehavior<TRequest, TResult> where TRequest : IRequestBase<TResult>
 {
     public int Order { get; }

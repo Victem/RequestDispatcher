@@ -19,3 +19,13 @@ public class PingHandler : IRequestHandler<Ping, Pong>
         return ValueTask.FromResult(new Pong());
     }
 }
+
+public record Ping2(string Message) : MediatR.IRequest<Pong2>;
+public record Pong2();
+public class PingHandler2 : MediatR.IRequestHandler<Ping2, Pong2>
+{
+    public Task<Pong2> Handle(Ping2 request, CancellationToken token = default)
+    {
+        return Task.FromResult(new Pong2());
+    }
+}

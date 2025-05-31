@@ -36,8 +36,6 @@ public class MessageHandlerInvoker<TRequest, TEmptyResult> :
     }
 
 
-
-
     public async ValueTask<TEmptyResult> Invoke(TRequest request, CancellationToken cancellationToken = default)
     {
 

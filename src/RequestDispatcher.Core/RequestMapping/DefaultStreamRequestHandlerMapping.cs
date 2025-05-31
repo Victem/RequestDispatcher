@@ -20,7 +20,6 @@ public class DefaultStreamRequestHandlerMapping : IStreamRequestHanlderMapping
             var resultType = type.GetInterface(typeof(IStreamRequest<>).Name).GenericTypeArguments[0];
             var invokerType = typeof(IStreamRequestHandlerInvoker<,>).MakeGenericType(type, resultType);
             return invokerType;
-
         });
     }
 }

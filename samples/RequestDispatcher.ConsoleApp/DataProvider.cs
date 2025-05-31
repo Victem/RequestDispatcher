@@ -15,8 +15,18 @@ public class DataProvider
     {
         while (!cancellationToken.IsCancellationRequested)
         {
-            yield return $"{Name}: {DateTime.Now}";
-            await Task.Delay(1000);
+            if (false) 
+            {
+                yield return $"{Name}: {DateTime.Now}";
+            }
+            else
+            {
+                Console.WriteLine($"{Name} nothing to return");
+                await Task.Delay(1000);
+                await Task.Yield();
+            }
+
+            //await Task.Delay(1000);
         }
     }
 }

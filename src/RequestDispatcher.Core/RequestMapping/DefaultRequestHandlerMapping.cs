@@ -19,10 +19,8 @@ internal class DefaultRequestHandlerMapping : IRequestHanlderMapping
         return _handlers.GetOrAdd(requestType, static (type) =>
         {
             var resultType = type.GetInterface(typeof(IRequest<>).Name).GenericTypeArguments[0];
-            //type.GenericTypeArguments[0];
             var invokerType = typeof(IRequestHandlerInvoker<,>).MakeGenericType(type, resultType);
             return invokerType;
-
         });
     }
 }

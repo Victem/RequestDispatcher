@@ -21,10 +21,10 @@ var serviceProvider = services.BuildServiceProvider();
 
 var dispatcher = serviceProvider.GetRequiredService<IDispatcher>();
 
-var firstResult = await dispatcher.Send(new FirstRequest());
-var secondResult = await dispatcher.Send(new SecondRequest());
-await dispatcher.Publish(new FirstMessage());
-
+//var firstResult = await dispatcher.Send(new FirstRequest());
+//var secondResult = await dispatcher.Send(new SecondRequest());
+//await dispatcher.Publish(new FirstMessage());
+await dispatcher.Send(new FirstAppRequest());
 
 var dataProviderOne = serviceProvider.GetRequiredService<DataProvider>();
 var dataProviderTwo = serviceProvider.GetRequiredService<DataProvider>();
@@ -39,13 +39,13 @@ var dataProviders = new List<DataProvider>
 };
 
 
-await Parallel.ForEachAsync(dataProviders, cts.Token, async (ds, t) =>
+/*await Parallel.ForEachAsync(dataProviders, cts.Token, async (ds, t) =>
 {
     await foreach (var item in ds.ReadData(t))
     {
         WriteData(item);
     }
-});
+});*/
 
 //await foreach(var item in dispatcher.CreateStream(new StreamRequest(), cts.Token).ConfigureAwait(false))
 //{ 

@@ -1,5 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
 
+using MediatR;
+
 using Microsoft.Extensions.DependencyInjection;
 
 using RequestDispatcher.Core;
@@ -21,23 +23,38 @@ namespace RequestDispatcher.Benchmark;
 public class Benchmarks
 {
     private IDispatcher _dispatcher;
+    private IMediator _mediator;
     private Ping _ping = new Ping("Hello World");
+    private Ping2 _ping2 = new Ping2("Hello World");
     private FirstMessage _firstMessage = new FirstMessage();
     private StreamRequest _streamRequest = new StreamRequest();
     private int[] _numbers;
+
     [GlobalSetup]
     public async Task GlobalSetup()
     {
         var services = new ServiceCollection();
         services.AddDispatcher();
-        services.AddScoped<IRequestHandler<Ping, Pong>, PingHandler>();
+        services.AddScoped<Core.Processing.Requests.IRequestHandler<Ping, Pong>, PingHandler>();
         services.AddScoped<IMessageHandler<FirstMessage, MessageHandled>, MessageHandler>();
-        services.AddScoped<IStreamRequestHandler<StreamRequest, StreamResult>, StreamRequestHandler>();
+        services.AddScoped<Core.Processing.Sreams.IStreamRequestHandler<StreamRequest, StreamResult>, StreamRequestHandler>();
+
+
+        services.AddMediatR(options =>
+        {
+            options.AutoRegisterRequestProcessors = true;
+            options.Lifetime = ServiceLifetime.Singleton;
+            options.RegisterServicesFromAssembly(typeof(Benchmarks).Assembly);
+        });
         //services.AddSingleton<IRequestHanlderMapping, CustomHanlderMapping>();
+
+
         var provider = services.BuildServiceProvider();
 
         _dispatcher = provider.GetRequiredService<IDispatcher>();
         _numbers = [1,2,3,4,5,6,7,8,9,10];
+
+        _mediator = provider.GetRequiredService<IMediator>();
     }
 
     [Benchmark]
@@ -47,24 +64,30 @@ public class Benchmarks
     }
 
     [Benchmark]
-    public async Task EventHandling()
+    public async Task MediatrRequestHandling()
     {
-        await _dispatcher.Publish(_firstMessage);
+        await _mediator.Send(_ping2);
     }
 
-    [Benchmark]
-    public async Task StreamHandling()
-    {
-        await foreach (var item in _dispatcher.CreateStream(_streamRequest))
-        { }
-    }
+    //[Benchmark]
+    //public async Task EventHandling()
+    //{
+    //    await _dispatcher.Publish(_firstMessage);
+    //}
 
-    [Benchmark]
-    public async Task StreamSimple()
-    {
-        await foreach (var item in ReadNumbers())
-        { }
-    }
+    //[Benchmark]
+    //public async Task StreamHandling()
+    //{
+    //    await foreach (var item in _dispatcher.CreateStream(_streamRequest))
+    //    { }
+    //}
+
+    //[Benchmark]
+    //public async Task StreamSimple()
+    //{
+    //    await foreach (var item in ReadNumbers())
+    //    { }
+    //}
 
     private async IAsyncEnumerable<int> ReadNumbers() 
     {
