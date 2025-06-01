@@ -1,0 +1,6 @@
+@RequestDispatcher.Web_HostAddress = http://localhost:5270
+
+GET {{RequestDispatcher.Web_HostAddress}}/test/
+Accept: application/json
+
+###

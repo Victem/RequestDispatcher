@@ -15,6 +15,16 @@ public interface IAppRequest<TResult> : IRequest<TResult>
 
 }
 
+public interface IAppRequestHandler<TRequest, TResult> : IRequestHandler<TRequest, TResult>
+    where TRequest : IAppRequest<TResult>
+{
+
+}
+
+public interface IAppMessageHandler<TRequest, Ok> : IMessageHandler<TRequest, Ok>
+    where TRequest : IMessage<Ok>
+{ }
+
 public record struct Ok { };
 
 public interface IAppMessage : IMessage<Ok>
@@ -30,9 +40,8 @@ public record FirstAppMessage() : IAppMessage;
 
 [RegisterSingleton(Registration = RegistrationStrategy.SelfWithProxyFactory)]
 public class NestedHandler :
-    IRequestHandler<FirstAppRequest, FirstAppResult>,
-    IMessageHandler<FirstAppMessage, Ok>
-    
+    IAppRequestHandler<FirstAppRequest, FirstAppResult>,
+    IAppMessageHandler<FirstAppMessage, Ok>
 {
     public ValueTask<FirstAppResult> Handle(FirstAppRequest request, CancellationToken token = default)
     {

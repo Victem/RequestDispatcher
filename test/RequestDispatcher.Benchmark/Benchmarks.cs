@@ -43,7 +43,7 @@ public class Benchmarks
         services.AddMediatR(options =>
         {
             options.AutoRegisterRequestProcessors = true;
-            options.Lifetime = ServiceLifetime.Singleton;
+            options.Lifetime = ServiceLifetime.Scoped;
             options.RegisterServicesFromAssembly(typeof(Benchmarks).Assembly);
         });
         //services.AddSingleton<IRequestHanlderMapping, CustomHanlderMapping>();

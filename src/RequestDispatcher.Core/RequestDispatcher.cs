@@ -51,7 +51,7 @@ public sealed class RequestDispatcher : IRequestDispatcher
     public ValueTask<TResult> Send<TResult>(IRequest<TResult> request, CancellationToken cancellationToken = default)
     {
         var requestType = request.GetType();        
-        var descriptor = _requestHanlderMapping.GetHadlerInvokerDescription(requestType);        
+        var descriptor = _requestHanlderMapping.GetHadlerInvokerDescription(requestType);
         var invoker = _serviceProvider.GetRequiredService(descriptor);
         return ((IInitRequestInvoke<TResult>)invoker).InitInvoke(request, cancellationToken);
     }
