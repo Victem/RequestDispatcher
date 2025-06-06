@@ -27,23 +27,19 @@ public static class DI
         services.AddSingleton(typeof(IMessageHandlerInvoker<,>), typeof(MessageHandlerInvoker<,>));
         services.AddSingleton(typeof(IStreamRequestHandlerInvoker<,>), typeof(StreamRequestHandlerInvoker<,>));
 
-        services.AddSingleton(typeof(IRequestHandlerInvoker<,>), typeof(RequestHandlerInvoker<,>));
-        services.AddSingleton(typeof(IMessageHandlerInvoker<,>), typeof(MessageHandlerInvoker<,>));
-        services.AddSingleton(typeof(IStreamRequestHandlerInvoker<,>), typeof(StreamRequestHandlerInvoker<,>));
-
-        //services.AddScoped(typeof(IRequestBasePipelineBehavior<,>), typeof(LoggingBehavior<,>));
-        //services.AddScoped(typeof(IRequestBasePipelineBehavior<,>), typeof(MetricsBehavior<,>));
-        //services.AddScoped(typeof(IStreamRequestPipelineBehavior<,>), typeof(LoggingStreamBehavior<,>));
+        //services.AddSingleton(typeof(IRequestBasePipelineBehavior<,>), typeof(LoggingBehavior<,>));
+        //services.AddSingleton(typeof(IRequestBasePipelineBehavior<,>), typeof(MetricsBehavior<,>));
+        //services.AddSingleton(typeof(IStreamRequestPipelineBehavior<,>), typeof(LoggingStreamBehavior<,>));
 
         services.AddScoped<IRequestDispatcher, RequestDispatcher>();
         services.AddScoped(typeof(IRequestHandlerInvoker<,>), typeof(RequestHandlerInvoker<,>));
         services.AddScoped(typeof(IMessageHandlerInvoker<,>), typeof(MessageHandlerInvoker<,>));
         services.AddScoped(typeof(IStreamRequestHandlerInvoker<,>), typeof(StreamRequestHandlerInvoker<,>));
 
-        services.AddScoped(typeof(IRequestHandlerInvoker<,>), typeof(RequestHandlerInvoker<,>));
-        services.AddScoped(typeof(IMessageHandlerInvoker<,>), typeof(MessageHandlerInvoker<,>));
-        services.AddScoped(typeof(IStreamRequestHandlerInvoker<,>), typeof(StreamRequestHandlerInvoker<,>));
-        
+        //services.AddScoped(typeof(IRequestBasePipelineBehavior<,>), typeof(LoggingBehavior<,>));
+        //services.AddScoped(typeof(IRequestBasePipelineBehavior<,>), typeof(MetricsBehavior<,>));
+        //services.AddScoped(typeof(IStreamRequestPipelineBehavior<,>), typeof(LoggingStreamBehavior<,>));
+
         services.AddSingleton<IMessageHandlerMapping, DefaultMessageHandlerMapping>();
         services.AddSingleton<IRequestHanlderMapping, DefaultRequestHandlerMapping>();
         services.AddSingleton<IStreamRequestHanlderMapping, DefaultStreamRequestHandlerMapping>();

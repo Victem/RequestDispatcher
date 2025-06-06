@@ -38,18 +38,36 @@ public record FirstAppResult();
 
 public record FirstAppMessage() : IAppMessage;
 
+//[RegisterSingleton(Registration = RegistrationStrategy.SelfWithProxyFactory)]
+//public class NestedHandler :
+//    IAppRequestHandler<FirstAppRequest, FirstAppResult>,
+//    IAppMessageHandler<FirstAppMessage, Ok>
+//{
+//    public ValueTask<FirstAppResult> Handle(FirstAppRequest request, CancellationToken token = default)
+//    {
+//        return new ValueTask<FirstAppResult>();
+//    }
+
+//    public ValueTask<Ok> Handle(IMessage<Ok> message, CancellationToken cancellationToken = default)
+//    {
+//        return new ValueTask<Ok>();
+//    }
+//}
+
+
 [RegisterSingleton(Registration = RegistrationStrategy.SelfWithProxyFactory)]
-public class NestedHandler :
-    IAppRequestHandler<FirstAppRequest, FirstAppResult>,
-    IAppMessageHandler<FirstAppMessage, Ok>
+public class NestedHandlerCommon<TRequest, TResult> :
+    IAppRequestHandler<TRequest, TResult>//,
+    //IAppMessageHandler<TRequest, Ok>
+     where TRequest : IAppRequest<TResult>
 {
-    public ValueTask<FirstAppResult> Handle(FirstAppRequest request, CancellationToken token = default)
+    public ValueTask<TResult> Handle(TRequest request, CancellationToken token = default)
     {
-        return new ValueTask<FirstAppResult>();
+        throw new NotImplementedException();
     }
 
     public ValueTask<Ok> Handle(IMessage<Ok> message, CancellationToken cancellationToken = default)
     {
-        return new ValueTask<Ok>();
+        throw new NotImplementedException();
     }
 }
