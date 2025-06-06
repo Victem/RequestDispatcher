@@ -1,0 +1,2 @@
+﻿nbgv prepare-release
+dotnet nuget push .\RequestDispatcher.Core.1.0.0.nupkg -s MyNuget
