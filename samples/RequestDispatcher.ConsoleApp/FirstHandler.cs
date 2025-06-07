@@ -46,7 +46,7 @@ public class FirstHandler :
         return ValueTask.FromResult(new SecondResponse());
     }
 
-    public async ValueTask<MessageHandled> Handle(IMessage<MessageHandled> message, CancellationToken cancellationToken = default)
+    public async ValueTask<MessageHandled> Handle(FirstMessage message, CancellationToken cancellationToken = default)
     {
         await Task.Delay(3000);
         return new MessageHandled();
@@ -58,7 +58,7 @@ public class SecondHandler :
     IMessageHandler<FirstMessage, MessageHandled>
 
 {
-    public ValueTask<MessageHandled> Handle(IMessage<MessageHandled> message, CancellationToken cancellationToken = default)
+    public ValueTask<MessageHandled> Handle(FirstMessage message, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }

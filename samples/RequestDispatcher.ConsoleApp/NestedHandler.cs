@@ -1,4 +1,5 @@
-﻿using RequestDispatcher.Core.Contracts;
+﻿using RequestDispatcher.ConsoleApp;
+using RequestDispatcher.Core.Contracts;
 using RequestDispatcher.Core.Processing.Messages;
 using RequestDispatcher.Core.Processing.Requests;
 
@@ -63,11 +64,19 @@ public class NestedHandlerCommon<TRequest, TResult> :
 {
     public ValueTask<TResult> Handle(TRequest request, CancellationToken token = default)
     {
+        return ValueTask.FromResult(default(TResult));
         throw new NotImplementedException();
     }
+}
 
-    public ValueTask<Ok> Handle(IMessage<Ok> message, CancellationToken cancellationToken = default)
+[RegisterSingleton(Registration = RegistrationStrategy.SelfWithProxyFactory)]
+public class NestedEventHandlerCommon<TEvent, TEmpty> :
+    IAppMessageHandler<TEvent, TEmpty>
+    where TEvent : IMessage<TEmpty>
+{
+    public ValueTask<TEmpty> Handle(TEvent message, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        return ValueTask.FromResult(default(TEmpty));
+        //return ValueTask.FromResult( new MessageHandled());
     }
 }

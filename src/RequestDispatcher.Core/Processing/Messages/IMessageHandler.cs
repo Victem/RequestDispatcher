@@ -10,5 +10,5 @@ namespace RequestDispatcher.Core.Processing.Messages;
 
 public interface IMessageHandler<TEvent, TEmpty> where TEvent : IMessage<TEmpty>
 {
-    ValueTask<TEmpty> Handle(IMessage<TEmpty> message, CancellationToken cancellationToken = default);
+    ValueTask<TEmpty> Handle(TEvent message, CancellationToken cancellationToken = default);
 }

@@ -31,7 +31,7 @@ var handlers = serviceProvider.GetKeyedServices<IMessageHandler<FirstMessage, Me
 //var firstResult = await dispatcher.Send(new FirstRequest());
 //var secondResult = await dispatcher.Send(new SecondRequest());
 await dispatcher.Send(new FirstAppRequest());
-await dispatcher.Publish(new FirstAppMessage());
+//await dispatcher.Publish(new FirstAppMessage());
 
 var dataProviderOne = serviceProvider.GetRequiredService<DataProvider>();
 var dataProviderTwo = serviceProvider.GetRequiredService<DataProvider>();
