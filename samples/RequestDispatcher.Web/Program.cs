@@ -1,6 +1,7 @@
 using RequestDispatcher.Core;
 using RequestDispatcher.Core.Abstractions;
 using RequestDispatcher.Web;
+using RequestDispatcher.Web.Handlers;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -25,7 +26,7 @@ app.MapGet("/test", async (IRequestDispatcher dispatcher, IServiceScopeFactory s
 {
     //await using var scope = scopeFactory.CreateAsyncScope();
     //var dispatcher2 = scope.ServiceProvider.GetRequiredService<IRequestDispatcher>();
-    var result = await dispatcher.Send(new TestRequest("Test"));
+    var result = await dispatcher.Send(new RequestOne("Test"));
     return Results.Ok();
 });
 

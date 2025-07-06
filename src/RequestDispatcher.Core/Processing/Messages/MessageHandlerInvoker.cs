@@ -39,18 +39,19 @@ public class MessageHandlerInvoker<TRequest, TEmptyResult> :
     public async ValueTask<TEmptyResult> Invoke(TRequest request, CancellationToken cancellationToken = default)
     {
 
-        //await Parallel.ForEachAsync(_messageHandlers, cancellationToken,async (handler, token)=>
+        //await Parallel.ForEachAsync(_messageHandlers, cancellationToken, async (handler, token) =>
         //{
         //    await InvokeHandler(request, handler, token);
         //    //return ValueTask.CompletedTask;
         //});
 
-        //var tasks =_messageHandlers.Select(mh => mh.Handle(request, cancellationToken).AsTask()).ToArray();
-        //await Task.WhenAll(tasks);
-        foreach (var item in _messageHandlers)
-        {
-            await item.Handle(request, cancellationToken);
-        }
+        var tasks =_messageHandlers.Select(mh => InvokeHandler(request, mh, cancellationToken).AsTask()).ToArray();
+        await Task.WhenAll(tasks);
+        //foreach (var item in _messageHandlers)
+        //{
+        //    //await item.Handle(request, cancellationToken);
+
+        //}
         return default;
     }
 
